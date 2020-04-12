@@ -25,6 +25,7 @@
 
 析构则是发过来，结合栈来理解。
 
+引用：https://blog.csdn.net/udahci/article/details/93463468
 
 
 ### 3.虚函数

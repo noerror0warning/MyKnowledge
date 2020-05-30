@@ -208,3 +208,62 @@ int *_refCount;
 ```
 
 **shared_ptr**是通过类实现的，类成员为一个指向目标的指针和一个对象实例化的计数器，当q计数器**归零**时，shared_ptr自动销毁
+
+
+
+### 10.extern关键字
+
+​	extern是C的关键字，作用是声明变量。变量是分声明和定义阶段的，和函数一样，如果只声明不定义的话，编译器并不会为该变量提供空间。
+
+```
+int a;			//声明并且定义
+int b=0;		//声明、定义并且初始化
+extern int c;	//仅仅是声明
+```
+
+​	这样就可以实现变量的跨文件传递，如果全局变量使用extern 声明，则这个变量对外部是可见的。
+
+​	**extern "C"** 这个是c++为了调用C接口的声明方法。因为C++实现了函数重载，编译之后的函数命名规则与C不一致，因此直接链接会找不到该函数，这时候加上这个关键词，就是在说明这个头文件/函数是以C的规则编译，即可调用。
+
+```c
+/*这里是C的头文件Clib.h*/
+extern int add(int a,int b);
+```
+
+```c
+/*这里是C的实现文件Clib.c*/
+#include"Clib.h"
+int add(int a,int b){
+	return a+b;
+}
+```
+
+```c++
+/*这里是C++调用C接口的文件CppMain.cpp*/
+extern "C"{
+	#include"Clib.h"
+}
+int main(){
+	add(1,1);
+	return 0;
+}
+```
+
+上述cpp中如果没有这个关键词，链接的时候会报错找不到add。
+
+另外，如果是C调用C++的接口也类似
+
+```c++
+/*C++库 cpplib.h*/
+extern "C" int add(int a,int b);
+```
+
+```c
+/*c中调用，这里是cFile.c*/
+extern int add(int a,int b);
+int main(){
+	add(1,1);
+	return 0;
+}
+```
+

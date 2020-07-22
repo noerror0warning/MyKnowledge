@@ -299,3 +299,6 @@ template<class T>
 using TMAP=map<T,int>;
 ```
 
+8.	std::variant<type,type…>可提供相当于联合体union的作用，可充当不定类型的函数参数，成员函数index()可以判断改实例属于那种类型（C++17新增）
+9.	类型转换dynamic_cast是下行转换即父类转子类，static_cast通常用于普通类型的强制转换，reinterpret_cast是不相关类型的转换、编译器会强制将某类型对象内存解释成另一对象、可见其不安全，const_cast能够移除const属性。
+
